@@ -36,7 +36,7 @@ public:
 	float Lenght = 10;
 
 	UPROPERTY(BlueprintReadWrite, Category = "State Definition")
-	float WarmupTime = 4;
+	float WarmupTime = 2;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnOver(UStateMachine * StateMachine, EPutInState State, bool Player1Correct, bool Player2Correct);

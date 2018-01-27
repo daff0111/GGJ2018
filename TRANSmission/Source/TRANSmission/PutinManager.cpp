@@ -174,7 +174,7 @@ void APutinManager::SendSignalPair(float stageTime)
 
 FInputResponse APutinManager::CheckInput()
 {
-	return FInputResponse(InputState, player1Received, player2Received);
+	return FInputResponse(InputState, player1Correct, player2Correct);
 }
 
 void APutinManager::GenerateRandomInputPair()
