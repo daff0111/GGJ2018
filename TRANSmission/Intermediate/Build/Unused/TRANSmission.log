@@ -1,0 +1,9 @@
+﻿  Using 'git status' to determine working set for adaptive non-unity build.
+  Creating makefile for TRANSmissionEditor (no existing makefile)
+  Deleting old hot reload file: "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Binaries\Win64\UE4Editor-TRANSmission-30.dll".
+  Deleting old hot reload file: "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Binaries\Win64\UE4Editor-TRANSmission-30.pdb".
+  Performing 1 actions (4 in parallel)
+  [1/1] Link UE4Editor-TRANSmission.dll
+     Creazione della libreria C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.suppressed.lib e dell'oggetto C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.suppressed.exp
+  Deploying TRANSmissionEditor Win64 Development...
+  Total build time: 15,89 seconds (Local executor: 2,72 seconds)

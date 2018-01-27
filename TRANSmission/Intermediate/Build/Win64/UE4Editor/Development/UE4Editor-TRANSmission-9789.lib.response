@@ -1,0 +1,20 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-TRANSmission-9789.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmission.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmissionCharacter.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmissionGameMode.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\Vibrator.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmission.init.gen.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmissionCharacter.gen.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\TRANSmissionGameMode.gen.cpp.obj"
+"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\Vibrator.gen.cpp.obj"
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\TRANSmission\PCLaunch.rc.res"
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\ModuleVersionResource.rc.inl.res"
+/OUT:"C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission-9789.lib"
