@@ -23,10 +23,10 @@ void AVibrator::BeginPlay()
 void AVibrator::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (PlaySignal)
+	if (Test_PlaySignal)
 	{
-		SendInput(SignalToPlay, EController::Player1);
-		PlaySignal = false;
+		SendInput(Test_SignalToPlay, Test_ControllerToVibrate);
+		Test_PlaySignal = false;
 	}
 	UpdatePlayer1Signal(DeltaTime);
 	UpdatePlayer2Signal(DeltaTime);
@@ -93,11 +93,24 @@ void AVibrator::SendInput(EMorseInput MorseInput, EController PlayerController)
 		break;
 	case EController::Player2:
 		player2Signals = signalToSend;
-		player1PlayingSignal = true;
+		player2PlayingSignal = true;
 		break;
 	default:
 		break;
 	}
+}
+
+void AVibrator::Suca()
+{
+	SendInput(EMorseInput::S, EController::Player1);
+	SendInput(EMorseInput::U, EController::Player1);
+	SendInput(EMorseInput::C, EController::Player1);
+	SendInput(EMorseInput::A, EController::Player1);
+
+	SendInput(EMorseInput::S, EController::Player2);
+	SendInput(EMorseInput::U, EController::Player2);
+	SendInput(EMorseInput::C, EController::Player2);
+	SendInput(EMorseInput::A, EController::Player2);
 }
 
 void AVibrator::SendSignal(EMorseSignal MorseSignal, EController PlayerController)
@@ -107,16 +120,20 @@ void AVibrator::SendSignal(EMorseSignal MorseSignal, EController PlayerControlle
 	{
 		playerIndex = 1;
 	}
-	switch (MorseSignal)
+	APlayerController* controller = UGameplayStatics::GetPlayerController(GetWorld(), playerIndex);
+	if (controller)
 	{
-	case EMorseSignal::Dot:
-		UGameplayStatics::GetPlayerController(GetWorld(), playerIndex)->ClientPlayForceFeedback(DotHapticFeedback, false, "DOT");
-		break;
-	case EMorseSignal::Dash:
-		UGameplayStatics::GetPlayerController(GetWorld(), playerIndex)->ClientPlayForceFeedback(DashHapticFeedback, false, "DOT");
-		break;
-	default:
-		break;
+		switch (MorseSignal)
+		{
+		case EMorseSignal::Dot:
+			controller->ClientPlayForceFeedback(DotHapticFeedback, false, "DOT");
+			break;
+		case EMorseSignal::Dash:
+			controller->ClientPlayForceFeedback(DashHapticFeedback, false, "DASH");
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -193,7 +210,7 @@ void AVibrator::UpdatePlayer2Signal(float deltaTime)
 		case EMorseSignal::Dot:
 			if (player2Timer >= DotDuration)
 			{
-				player2CurrentSignal = EMorseSignal::Dot;
+				player2CurrentSignal = EMorseSignal::Break;
 				player2Timer = 0;
 			}
 			break;

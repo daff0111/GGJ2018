@@ -53,6 +53,9 @@ public:
 	// Called to send the Letter Signal to the controller
 	void SendInput(EMorseInput MorseInput, EController PlayerController);
 
+	// Send SUCA Signal
+	void Suca();
+
 private:
 	void SendSignal(EMorseSignal MorseSignal, EController PlayerController);
 
@@ -63,23 +66,26 @@ private:
 //Attributes
 public:
 	//Test
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Vibrator)
-	bool PlaySignal = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Vibrator")
+	bool Test_PlaySignal = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Vibrator)
-	EMorseInput SignalToPlay;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Vibrator")
+	EController Test_ControllerToVibrate;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Vibrator)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Vibrator")
+	EMorseInput Test_SignalToPlay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Vibrator")
 	UForceFeedbackEffect* DotHapticFeedback;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Vibrator)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Vibrator")
 	UForceFeedbackEffect* DashHapticFeedback;
 
 private:
 	//Vibration duration
 	const float DotDuration = 0.1f;
 	const float DashDuration = 0.3f;
-	const float BreakDuration = 0.1f;
+	const float BreakDuration = 0.3f;
 
 	//Controller 1 Signal Parameters
 	bool player1PlayingSignal = false;
