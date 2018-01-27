@@ -16,11 +16,8 @@ enum class EPutInState : uint8
 	Completed
 };
 
-//USTRUCT()
 struct FInputResponse
 {
-	//GENERATED_BODY()
-
 	EPutInState State;
 	bool Player1Correct;
 	bool Player2Correct;

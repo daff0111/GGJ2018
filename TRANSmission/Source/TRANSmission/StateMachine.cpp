@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #include "StateMachine.h"
+#include "Kismet/GameplayStatics.h"
+
 
 
 // Sets default values for this component's properties
@@ -11,13 +12,6 @@ UStateMachine::UStateMachine()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
-
-	for (TSubclassOf<UState> stateDefinition : StateDefinitions)
-	{
-		States.Push(NewObject<UState>(stateDefinition));
-	}
-
-	CurrentState = 0;
 }
 
 
@@ -26,25 +20,71 @@ void UStateMachine::BeginPlay()
 {
 	Super::BeginPlay();
 
+	for (TSubclassOf<UState> stateDefinition : StateDefinitions)
+	{
+		auto state = NewObject<UState>(stateDefinition);
+		States.Add(state);
+	}
+
+	CurrentState = 0;
+
+	TArray<AActor *> Actors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APutinManager::StaticClass(), Actors);
+
+	if (Actors.Num() != 0)
+	{
+		InputManager = Cast<APutinManager>(Actors[0]);
+	}
+
 	States[CurrentState]->OnStateStart(this);
 
+	InputManager->SendSignalPair(States[CurrentState]->Lenght);
 }
 
 
 // Called every frame
 void UStateMachine::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
+
+	if (CurrentGameState != GameState::Running)
+	{
+		return;
+	}
+
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	States[CurrentState]->Tick(this, DeltaTime);
+	auto input = InputManager->CheckInput();
+	
+	uint8 state = (uint8)(input.State);
 
-	if (States[CurrentState]->IsOver(this) && CurrentState < States.Num())
+
+	if (state == (uint8)(EPutInState::Completed))
 	{
+		States[CurrentState]->SetOverConditions(input.Player1Correct, input.Player2Correct);
+		States[CurrentState]->OnOver(this, input.State, input.Player1Correct, input.Player2Correct);
+
 		CurrentState++;
+
+		if (CurrentState < States.Num())
+		{
+			InputManager->SendSignalPair(States[CurrentState]->Lenght);
+		}
+		else
+		{
+			CurrentGameState = GameState::Victory;
+		}
 	}
 	else
 	{
-		CurrentGameState = GameState::Victory;
+		States[CurrentState]->Tick(this, DeltaTime);
 	}
+
 }
 
+void UState::SetOverConditions(bool IsPlayer1Correct, bool IsPlayer2Correct)
+{
+	Over = true;
+
+	Player1Correct = IsPlayer1Correct;
+	Player2Correct = IsPlayer2Correct;
+}
