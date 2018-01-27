@@ -11,9 +11,17 @@
 UENUM(BlueprintType)
 enum class GameState : uint8
 {
+	PreStart,
 	Running,
 	Loss,
 	Victory
+};
+
+UENUM(BlueprintType)
+enum class StateFlow : uint8
+{
+	Warmup,
+	Wait
 };
 
 class UStateMachine;
@@ -26,6 +34,9 @@ class TRANSMISSION_API UState : public UObject
 public:
 	UPROPERTY(BlueprintReadWrite, Category = "State Definition")
 	float Lenght = 10;
+
+	UPROPERTY(BlueprintReadWrite, Category = "State Definition")
+	float WarmupTime = 4;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnOver(UStateMachine * StateMachine, EPutInState State, bool Player1Correct, bool Player2Correct);
@@ -62,6 +73,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "States")
 	TArray<TSubclassOf<UState>> StateDefinitions;
 
+	UFUNCTION(BlueprintCallable)
+	void Start();
+
 
 protected:
 	// Called when the game starts
@@ -76,11 +90,17 @@ private:
 	APutinManager * InputManager;
 
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	GameState CurrentGameState = GameState::Running;
+	GameState CurrentGameState = GameState::PreStart;
 
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int CurrentState;
 
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	StateFlow CurrentStateFlow;
+
 	UPROPERTY(BlueprintReadWrite, Category = "States", meta = (AllowPrivateAccess = "true"))
 	TArray<UState *> States;
+
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float StateTime = 0;
 };

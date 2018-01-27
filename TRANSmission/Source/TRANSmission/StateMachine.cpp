@@ -15,6 +15,15 @@ UStateMachine::UStateMachine()
 }
 
 
+void UStateMachine::Start()
+{
+	States[CurrentState]->OnStateStart(this);
+	CurrentStateFlow = StateFlow::Warmup;
+	StateTime = 0;
+
+	CurrentGameState = GameState::Running;
+}
+
 // Called when the game starts
 void UStateMachine::BeginPlay()
 {
@@ -36,48 +45,74 @@ void UStateMachine::BeginPlay()
 		InputManager = Cast<APutinManager>(Actors[0]);
 	}
 
-	States[CurrentState]->OnStateStart(this);
-
-	InputManager->SendSignalPair(States[CurrentState]->Lenght);
 }
 
 
 // Called every frame
 void UStateMachine::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if (CurrentGameState != GameState::Running)
 	{
 		return;
 	}
 
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	switch (CurrentStateFlow)
+	{
+	  case StateFlow::Warmup:
+	  {
+	  	StateTime += DeltaTime;
+	  
+	  	if (StateTime >= States[CurrentState]->WarmupTime)
+	  	{
+	  		InputManager->SendSignalPair(States[CurrentState]->Lenght);
+	  		CurrentStateFlow = StateFlow::Wait;
+	  		StateTime = 0;
+	  	}
+	  
+	  	break;
+	  }
+	  case StateFlow::Wait:
+	  {
+	  	auto input = InputManager->CheckInput();	  
+	  	uint8 state = (uint8)(input.State);
+	  
+	  	if (state == (uint8)(EPutInState::Completed))
+	  	{
+	  		States[CurrentState]->SetOverConditions(input.Player1Correct, input.Player2Correct);
+	  		States[CurrentState]->OnOver(this, input.State, input.Player1Correct, input.Player2Correct);
+	  
+	  		CurrentState++;
+	  
+	  		if (CurrentState < States.Num())
+	  		{	  
+	  			States[CurrentState]->OnStateStart(this);
+	  			CurrentStateFlow = StateFlow::Warmup;
+	  		}
+	  		else
+	  		{
+	  			CurrentGameState = GameState::Victory;
+	  		}
 
-	auto input = InputManager->CheckInput();
+			StateTime = 0;
+	  	}
+	  	else
+	  	{
+	  		States[CurrentState]->Tick(this, DeltaTime);
+			StateTime += DeltaTime;
+
+	  	}
+	  
+	  	break;
+	  }
+	  
+	  default:
+	  	break;
+	}
+
+
 	
-	uint8 state = (uint8)(input.State);
-
-
-	if (state == (uint8)(EPutInState::Completed))
-	{
-		States[CurrentState]->SetOverConditions(input.Player1Correct, input.Player2Correct);
-		States[CurrentState]->OnOver(this, input.State, input.Player1Correct, input.Player2Correct);
-
-		CurrentState++;
-
-		if (CurrentState < States.Num())
-		{
-			InputManager->SendSignalPair(States[CurrentState]->Lenght);
-		}
-		else
-		{
-			CurrentGameState = GameState::Victory;
-		}
-	}
-	else
-	{
-		States[CurrentState]->Tick(this, DeltaTime);
-	}
 
 }
 
