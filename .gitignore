@@ -76,3 +76,5 @@ DerivedDataCache/*
 *.ini
 TRANSmission/Saved/Autosaves/PackageRestoreData.json
 *.vcxproj
+*.log
+TRANSmission/Saved/Backup/ThirdPersonExampleMap_BuiltData_2018-01-27-13-17-11.uasset

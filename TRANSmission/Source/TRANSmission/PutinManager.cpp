@@ -114,6 +114,7 @@ bool APutinManager::PollPlayer1Response()
 		if (player1Received)
 		{
 			currentSyncTime = 0;
+			OnPlayer1Response(signalReceived);
 			return player1Signal == signalReceived;
 		}		
 	}
@@ -149,6 +150,7 @@ bool APutinManager::PollPlayer2Response()
 		if (player2Received)
 		{
 			currentSyncTime = 0;
+			OnPlayer2Response(signalReceived);
 			return player2Signal == signalReceived;
 		}
 	}
@@ -176,10 +178,13 @@ FInputResponse APutinManager::CheckInput()
 
 void APutinManager::GenerateRandomInputPair()
 {
-	FMath::RandInit(0);
-	player1Signal = GenerateRandomSignal();
-	FMath::RandInit(1000);
-	player2Signal = GenerateRandomSignal();
+	double secs = FTimespan(FDateTime::Now().GetTicks()).GetTotalMilliseconds();
+	int32 seed = (int32)(((int64)secs) % INT_MAX);
+	FMath::RandInit(seed);
+	float rand = FMath::FRand();
+	player1Signal = GenerateRandomSignal(rand);
+	rand = FMath::RandRange(0.f, 1.f);
+	player2Signal = GenerateRandomSignal(rand);
 }
 
 void APutinManager::SendSignalsToPlayers()
@@ -198,12 +203,8 @@ void APutinManager::SendCompleted()
 	InputState = EPutInState::Completed;
 }
 
-EMorseInput APutinManager::GenerateRandomSignal()
+EMorseInput APutinManager::GenerateRandomSignal(float rand)
 {
-	double secs = FTimespan(FDateTime::Now().GetTicks()).GetTotalSeconds();
-	int32 seed = (int32)(((int64)secs) % INT_MAX);
-	FMath::RandInit(seed);
-	float rand = (float) (FMath::Rand() / RAND_MAX);
 	if (rand > 0.75f)
 	{
 		return EMorseInput::A;
@@ -223,5 +224,13 @@ EMorseInput APutinManager::GenerateRandomSignal()
 }
 
 void APutinManager::OnInputCompleted_Implementation(bool player1Response, bool player2Response)
+{
+}
+
+void APutinManager::OnPlayer1Response_Implementation(EMorseInput input)
+{													 
+}													 
+													 
+void APutinManager::OnPlayer2Response_Implementation(EMorseInput input)
 {
 }
