@@ -70,14 +70,20 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = "PutInManager")
 	FInputResponse CheckInput();
 
-	UFUNCTION(BlueprintNativeEvent, Category = "BaseCharacter")
+	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
 	void OnInputCompleted(bool player1Response, bool player2Response);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
+	void OnPlayer1Response(EMorseInput input);
+
+	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
+	void OnPlayer2Response(EMorseInput input);
 
 
 private:
 	void GenerateRandomInputPair();
 
-	EMorseInput GenerateRandomSignal();
+	EMorseInput GenerateRandomSignal(float rand);
 
 	void SendSignalsToPlayers();
 
