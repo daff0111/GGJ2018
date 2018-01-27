@@ -19,8 +19,8 @@ void EmptyLinkFunctionForGeneratedCodeTRANSmission_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/TRANSmission",
 				PKG_CompiledIn | 0x00000000,
-				0xD3E27C7A,
-				0x95295ABB,
+				0xF5C7B7E7,
+				0xAFF2CAE6,
 				nullptr, 0,
 				METADATA_PARAMS(nullptr, 0)
 			};

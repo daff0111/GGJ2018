@@ -1,9 +1,17 @@
 ﻿  Using 'git status' to determine working set for adaptive non-unity build.
-  Creating makefile for TRANSmissionEditor (no existing makefile)
-  Deleting old hot reload file: "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Binaries\Win64\UE4Editor-TRANSmission-30.dll".
-  Deleting old hot reload file: "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Binaries\Win64\UE4Editor-TRANSmission-30.pdb".
-  Performing 1 actions (4 in parallel)
-  [1/1] Link UE4Editor-TRANSmission.dll
+  Parsing headers for TRANSmissionEditor
+    Running UnrealHeaderTool "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\TRANSmission.uproject" "C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\TRANSmissionEditor\Development\TRANSmissionEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+  Reflection code generated for TRANSmissionEditor in 22,6040381 seconds
+  Performing 4 actions (4 in parallel)
+  Vibrator.cpp
+  Vibrator.gen.cpp
+C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Source\TRANSmission\Vibrator.cpp(113): warning C4996: 'APlayerController::ClientPlayForceFeedback': Use version that specifies whether to ignore time dilation or not Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+  C:\Program Files\Epic Games\UE_4.18\Engine\Source\Runtime\Engine\Classes\GameFramework/PlayerController.h(917): note: vedere la dichiarazione di 'APlayerController::ClientPlayForceFeedback'
+C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Source\TRANSmission\Vibrator.cpp(116): warning C4996: 'APlayerController::ClientPlayForceFeedback': Use version that specifies whether to ignore time dilation or not Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+  C:\Program Files\Epic Games\UE_4.18\Engine\Source\Runtime\Engine\Classes\GameFramework/PlayerController.h(917): note: vedere la dichiarazione di 'APlayerController::ClientPlayForceFeedback'
+  [3/4] Link UE4Editor-TRANSmission.dll
+  [4/4] Link UE4Editor-TRANSmission.lib
+     Creazione della libreria C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.lib e dell'oggetto C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.exp
      Creazione della libreria C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.suppressed.lib e dell'oggetto C:\Users\Domenico\Desktop\GGJ2018\GGJ2018\TRANSmission\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-TRANSmission.suppressed.exp
   Deploying TRANSmissionEditor Win64 Development...
-  Total build time: 15,89 seconds (Local executor: 2,72 seconds)
+  Total build time: 180,58 seconds (Local executor: 148,19 seconds)

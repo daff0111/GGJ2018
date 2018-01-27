@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<None Include="..\..\TRANSmission.uproject" />
+		<Filter Include="Source">
+			<UniqueIdentifier>{D8455C78-7913-4F2A-B4F0-15A05D63C6F7}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\TRANSmission.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<None Include="..\..\Source\TRANSmissionEditor.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<Filter Include="Config">
+			<UniqueIdentifier>{65A71C31-6C50-452D-8DFB-800CBD85F270}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Config\DefaultEditor.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEngine.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultGame.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultInput.ini">
+			<Filter>Config</Filter>
+		</None >
+		<Filter Include="Source\TRANSmission">
+			<UniqueIdentifier>{F836176B-4366-4BA0-A9BC-1B2A23C6F663}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\TRANSmission\TRANSmission.Build.cs">
+			<Filter>Source\TRANSmission</Filter>
+		</None >
+		<ClCompile Include="..\..\Source\TRANSmission\TRANSmission.cpp">
+			<Filter>Source\TRANSmission</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\TRANSmission\TRANSmission.h">
+			<Filter>Source\TRANSmission</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\TRANSmission\TRANSmissionCharacter.cpp">
+			<Filter>Source\TRANSmission</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\TRANSmission\TRANSmissionCharacter.h">
+			<Filter>Source\TRANSmission</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\TRANSmission\TRANSmissionGameMode.cpp">
+			<Filter>Source\TRANSmission</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\TRANSmission\TRANSmissionGameMode.h">
+			<Filter>Source\TRANSmission</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\TRANSmission\Vibrator.cpp">
+			<Filter>Source\TRANSmission</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\TRANSmission\Vibrator.h">
+			<Filter>Source\TRANSmission</Filter>
+		</ClInclude >
+	</ItemGroup>
+</Project>
