@@ -20,6 +20,7 @@ enum class GameState : uint8
 UENUM(BlueprintType)
 enum class StateFlow : uint8
 {
+	Idle,
 	Warmup,
 	Wait
 };
@@ -76,7 +77,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Start();
 
-
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -96,7 +96,7 @@ private:
 	int CurrentState;
 
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	StateFlow CurrentStateFlow;
+	StateFlow CurrentStateFlow = StateFlow::Idle;
 
 	UPROPERTY(BlueprintReadWrite, Category = "States", meta = (AllowPrivateAccess = "true"))
 	TArray<UState *> States;

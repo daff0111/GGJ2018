@@ -68,6 +68,9 @@ public:
 	FInputResponse CheckInput();
 
 	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
+	void OnReceiveCommand();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
 	void OnInputCompleted(bool player1Response, bool player2Response);
 
 	UFUNCTION(BlueprintNativeEvent, Category = "PutInManager")
