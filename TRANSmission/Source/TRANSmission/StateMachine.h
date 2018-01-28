@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "PutinManager.h"
+#include "DelegateCombinations.h"
 #include "StateMachine.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGameOverDelegate, bool, Victory);
 
 UENUM(BlueprintType)
 enum class GameState : uint8
@@ -22,7 +24,8 @@ enum class StateFlow : uint8
 {
 	Idle,
 	Warmup,
-	Wait
+	Wait,
+	Completed
 };
 
 class UStateMachine;
@@ -39,6 +42,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "State Definition")
 	float WarmupTime = 2;
 
+	UPROPERTY(BlueprintReadWrite, Category = "State Definition")
+	float CompletedTime = 2;
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnOver(UStateMachine * StateMachine, EPutInState State, bool Player1Correct, bool Player2Correct);
 
@@ -49,6 +55,8 @@ public:
 	void Tick(UStateMachine * StateMachine, float DeltaTime);
 
 	void SetOverConditions(bool IsPlayer1Correct, bool IsPlayer2Correct);
+
+	bool FinishedCorrectly();
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -84,6 +92,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UPROPERTY(BlueprintAssignable)
+	FGameOverDelegate GameOverDelegate;
 
 private:
 
