@@ -83,18 +83,7 @@ void UStateMachine::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	  		States[CurrentState]->SetOverConditions(input.Player1Correct, input.Player2Correct);
 	  		States[CurrentState]->OnOver(this, input.State, input.Player1Correct, input.Player2Correct);
 	  
-	  		CurrentState++;
-	  
-	  		if (CurrentState < States.Num())
-	  		{	  
-	  			States[CurrentState]->OnStateStart(this);
-	  			CurrentStateFlow = StateFlow::Warmup;
-	  		}
-	  		else
-	  		{
-	  			CurrentGameState = GameState::Victory;
-	  		}
-
+			CurrentStateFlow = StateFlow::Completed;
 			StateTime = 0;
 	  	}
 	  	else
@@ -106,14 +95,60 @@ void UStateMachine::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	  
 	  	break;
 	  }
+
+	  case StateFlow::Completed:
+	  {
+		  if (StateTime < States[CurrentState]->CompletedTime)
+		  {
+			  StateTime += DeltaTime;
+		  }
+		  else
+		  {
+			  CurrentState++;
+
+			  if (CurrentState < States.Num())
+			  {
+				  States[CurrentState]->OnStateStart(this);
+				  CurrentStateFlow = StateFlow::Warmup;
+			  }
+			  else
+			  {
+
+				  bool Victory = true;
+
+				  for (auto state : States)
+				  {
+					  Victory = Victory && state->FinishedCorrectly();
+				  }
+
+				  if (Victory)
+				  {
+					  if (GameOverDelegate.IsBound())
+					  {
+						  GameOverDelegate.Broadcast(true);
+					  }
+
+					  CurrentGameState = GameState::Victory;
+				  }
+				  else
+				  {
+					  if (GameOverDelegate.IsBound())
+					  {
+						  GameOverDelegate.Broadcast(false);
+					  }
+
+					  CurrentGameState = GameState::Loss;
+				  }
+			  }
+
+			  StateTime = 0;
+		  }
+
+	  }
 	  
 	  default:
 	  	break;
 	}
-
-
-	
-
 }
 
 void UState::SetOverConditions(bool IsPlayer1Correct, bool IsPlayer2Correct)
@@ -122,4 +157,9 @@ void UState::SetOverConditions(bool IsPlayer1Correct, bool IsPlayer2Correct)
 
 	Player1Correct = IsPlayer1Correct;
 	Player2Correct = IsPlayer2Correct;
+}
+
+bool UState::FinishedCorrectly()
+{
+	return Over && Player2Correct && Player1Correct;
 }

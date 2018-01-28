@@ -28,6 +28,7 @@ void APutinManager::Tick(float DeltaTime)
 		currentStageTime += DeltaTime;
 		if (currentStageTime >= SignalWaitTime)
 		{
+			OnReceiveCommand();
 			InputState = EPutInState::WaitingForResponse;
 		}
 		break;
@@ -222,6 +223,10 @@ EMorseInput APutinManager::GenerateRandomSignal(float rand)
 	{
 		return EMorseInput::Y;
 	}
+}
+
+void APutinManager::OnReceiveCommand_Implementation()
+{
 }
 
 void APutinManager::OnInputCompleted_Implementation(bool player1Response, bool player2Response)
