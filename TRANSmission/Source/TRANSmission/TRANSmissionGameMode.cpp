@@ -10,6 +10,6 @@ ATRANSmissionGameMode::ATRANSmissionGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Gameplay/RobotCharacter/BP_RobotCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
+		DefaultPawnClass = NULL;
 	}
 }
